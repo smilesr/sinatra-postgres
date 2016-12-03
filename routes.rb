@@ -10,16 +10,21 @@ get '/' do
   erb :home
 end
 
-get '/new' do
+get '/articles' do
+  @articles = Article.all.order(created_at: :desc)
+  erb :articles
+end
+
+get '/articles/new' do
   erb :new
 end
 
-get '/article/:id' do
+get '/articles/:id' do
   @article = Article.find(params[:id])
   erb :show
 end
 
-post '/create' do
+post '/articles' do
   @article = Article.new(params)
   if @article.save
     redirect '/articles'
@@ -28,10 +33,28 @@ post '/create' do
   end
 end
 
-get '/articles' do
-  @articles = Article.all.order(created_at: :desc)
-  erb :articles
+get '/articles/:id/edit' do
+  erb :edit
 end
+
+put '/articles/:id' do
+  @article = Article.find(params[:id])
+  if @article.save
+    redirect '/articles'
+  else
+    "There was an error."
+  end
+end
+
+delete 'articles/:id' do
+  @article = Article.find(params[:id])
+  @article.destory
+  redirect '/articles'
+end
+
+
+
+
 
 post '/articles' do
   # @article = Article.create(params[:article])
