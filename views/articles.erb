@@ -1,3 +1,21 @@
+<h1> ARTICLES </h1>
+<div>
+  <button class="header-buttons" id="sort-date"><a href="#">Sort by Date</a></button>
+  <button class="header-buttons" id="sort-title"><a href="#">Sort by Title</a></button>
+  <button class="header-buttons"><a href="/new">New Article</a></button>
+</div>
 
-<p> TEST </p>
+  <% @articles.each do |article|%>
+  <div class="article-box">
+  <a class="article-title" href="/article/<%= article.id %>"><%= article.title %></a>
+  <button class="edit-buttons"><a href="#">Delete</a></button>
+  <button class="edit-buttons"><a href="#">Edit</a></button>
+  <br>
+  <%= article.content %>
+  <br>
+  <div class="time"><%= article.created_at.strftime("%B %d, %Y - %I:%M %p") %> </div>
+ 
+</div>
+<% end %>
+
 
